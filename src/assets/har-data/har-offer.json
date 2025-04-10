@@ -1,0 +1,65 @@
+[
+  {
+    "offerId": 1,
+    "name": "Basement Renovation & Remodeling",
+    "coverImage": "assets/images/1.jpeg",
+    "description": "Description 1",
+    "imageURL": [""]
+  },
+  {
+    "offerId": 2,
+    "name": "Kitchen and Bathroom Renovation & Remodeling",
+    "coverImage": "assets/images/kw1.jpeg",
+    "description": "Description 2",
+    "imageURL": [""]
+  },
+  {
+    "offerId": 3,
+    "name": "Drywall installation, mudding and taping",
+    "coverImage": "assets/images/dw1.jpeg",
+    "description": "Description 3",
+    "imageURL": [""]
+  },
+  {
+    "offerId": 4,
+    "name": "Structural Framing & Flooring Services",
+    "coverImage": "assets/images/sf1.jpeg",
+    "description": "Description 2",
+    "imageURL": [""]
+  },
+  {
+    "offerId": 5,
+    "name": "Commercial & Retail Space Renovations",
+    "coverImage": "assets/images/crr1.jpeg",
+    "description": "Description 3",
+    "imageURL": [""]
+  },
+  {
+    "offerId": 6,
+    "name": "Living Space Transformations",
+    "coverImage": "assets/images/LST1.jpeg",
+    "description": "Description 3",
+    "imageURL": [""]
+  },
+  {
+    "offerId": 7,
+    "name": "Roofing",
+    "coverImage": "assets/images/r1.jpeg",
+    "description": "Description 2",
+    "imageURL": [""]
+  },
+  {
+    "offerId": 8,
+    "name": "Plumbing",
+    "coverImage": "assets/images/p1.jpeg",
+    "description": "Description 3",
+    "imageURL": [""]
+  },
+  {
+    "offerId": 9,
+    "name": "Deck and fence",
+    "coverImage": "assets/images/df1.jpeg",
+    "description": "Description 3",
+    "imageURL": [""]
+  }
+]

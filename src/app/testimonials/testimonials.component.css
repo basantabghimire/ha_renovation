@@ -1,0 +1,5 @@
+.fixed-height-card {
+    min-height: 350px; /* Example minimum height */
+    /* or */
+    /* height: 350px; /* Example fixed height */
+  }

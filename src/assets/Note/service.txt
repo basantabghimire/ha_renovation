@@ -1,0 +1,33 @@
+
+
+
+
+
+<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <ul>
+                    <li>Renovation</li>
+                    <li>Structural and Surface Enhancements</li>
+                    <li>Installation</li>
+                    <li>Essential Building Systems:</li>
+                    <li>Extension</li>
+                    
+
+
+
+                  </ul>
+Absolutely! Here are 5 headings designed to encompass the points you provided:
+Comprehensive Interior Remodeling: Foundations to Finishes
+
+This heading covers basement, kitchen, and washroom renovations, along with the finishing work like mudding, taping, and painting.
+Structural and Surface Enhancements: Framing, Finishing, and Flooring
+
+This captures framing, mudding, taping, painting, flooring, and baseboard installation.
+Essential Building Systems: Plumbing, Roofing, and Exterior Structures
+
+This directly addresses plumbing, roofing, decks, and fences.
+Expansion and Alteration: Home Extension Projects
+
+This is a very clear heading for home extensions.
+Full-Service Home Improvement: Interior, Exterior, and Structural Upgrades
+
+This is a heading that will cover all of the provided services.

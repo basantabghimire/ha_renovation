@@ -1,0 +1,111 @@
+<div class="container-fluid  mt-5 mb-5  ">
+ 
+  <div class="row justify-content-center px-4 py-5">
+    <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">{{title}}</h1>
+    <div class="col-12 col-lg-4 ">
+      <div class="card  ">
+        <div class="card-body">
+          <p class="card-text">{{wellComeMessage}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-8  ">
+      <div class="card  ">
+        <form class="row p-4" action="javascript:void(0)" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="form-floating mb-3 col-md-6">
+              <input type="text" class="form-control" id="firstName" placeholder="First name" aria-label="First name"
+                formControlName="firstName" required>
+              <label for="firstName">First Name</label>
+              <div
+                *ngIf="contactForm.get('firstName')?.invalid && (contactForm.get('firstName')?.dirty || contactForm.get('firstName')?.touched)"
+                class="invalid-feedback">
+                <div *ngIf="contactForm.get('firstName')?.errors?.['required']">First Name is required.</div>
+              </div>
+            </div>
+            <div class="form-floating mb-3 col-md-6">
+              <input type="text" class="form-control" id="lastName" placeholder="Last name" aria-label="Last name"
+                formControlName="lastName" required>
+              <label for="lastName">Last Name</label>
+              <div
+                *ngIf="contactForm.get('lastName')?.invalid && (contactForm.get('lastName')?.dirty || contactForm.get('lastName')?.touched)"
+                class="invalid-feedback">
+                <div *ngIf="contactForm.get('lastName')?.errors?.['required']">Last Name is required.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="email" placeholder="name@example.com" formControlName="email"
+              required>
+            <label for="email">Email address</label>
+            <div
+              *ngIf="contactForm.get('email')?.invalid && (contactForm.get('email')?.dirty || contactForm.get('email')?.touched)"
+              class="invalid-feedback">
+              <div *ngIf="contactForm.get('email')?.errors?.['required']">Email is required.</div>
+              <div *ngIf="contactForm.get('email')?.errors?.['email']">Please enter a valid email address.</div>
+            </div>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="tel" class="form-control" id="phoneNumber" placeholder="Phone Number"
+              formControlName="phoneNumber" required>
+            <label for="phoneNumber">Phone Number</label>
+            <div
+              *ngIf="contactForm.get('phoneNumber')?.invalid && (contactForm.get('phoneNumber')?.dirty || contactForm.get('phoneNumber')?.touched)"
+              class="invalid-feedback">
+              <div *ngIf="contactForm.get('phoneNumber')?.errors?.['required']">Phone Number is required.</div>
+              <div *ngIf="contactForm.get('phoneNumber')?.errors?.['pattern']">Please enter a valid phone number.</div>
+            </div>
+          </div>
+
+          <div>
+            <select class="form-select form-select-lg mb-3" id="serviceSelect" aria-label="Large select example"
+              formControlName="serviceSelect" required>
+              <option value="" disabled>Open this select menu</option>
+              <option value="Basement Renovation & Remodeling">Basement Renovation & Remodeling</option>
+              <option value="Kitchen and Bathroom Renovation & Remodeling">Kitchen and Bathroom Renovation & Remodeling
+              </option>
+              <option value="Drywall installation, mudding and taping">Drywall installation, mudding and taping</option>
+              <option value="Structural Framing & Flooring Services">Structural Framing & Flooring Services</option>
+              <option value="Commercial & Retail Space Renovations">Commercial & Retail Space Renovations</option>
+              <option value="Living Space Transformations">Living Space Transformations</option>
+              <option value="Roofing">Roofing</option>
+              <option value="Plumbing">Plumbing</option>
+              <option value="Deck and fence">Deck and fence</option>
+            </select>
+            <div
+              *ngIf="contactForm.get('serviceSelect')?.invalid && (contactForm.get('serviceSelect')?.dirty || contactForm.get('serviceSelect')?.touched)"
+              class="invalid-feedback">
+              <div *ngIf="contactForm.get('serviceSelect')?.errors?.['required']">Please select a service.</div>
+            </div>
+          </div>
+
+          <div class="form-floating">
+            <textarea class="form-control" placeholder="Leave a comment here" id="message" style="height: 100px"
+              formControlName="message" required></textarea>
+            <label for="message">Message</label>
+            <div
+              *ngIf="contactForm.get('message')?.invalid && (contactForm.get('message')?.dirty || contactForm.get('message')?.touched)"
+              class="invalid-feedback">
+              <div *ngIf="contactForm.get('message')?.errors?.['required']">Please enter a message.</div>
+            </div>
+          </div>
+          <div *ngIf="formSubmitted && contactForm.invalid" class="alert alert-danger">
+            Please fill out all required fields.
+          </div>
+          <div class="col-12 p-4">
+            <button class="btn btn-secondary btn-lg px-4" type="submit" data-mdb-ripple-init
+              [disabled]="contactForm.invalid">Send Your Message</button>
+          </div>
+        </form>
+        <div *ngIf="submissionStatus === 'success'" class="alert alert-success">
+          Message sent. We will contact you shortly.
+        </div>
+        <div *ngIf="submissionStatus === 'error'" class="alert alert-danger">
+          Failed to send message. Please try again.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

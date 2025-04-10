@@ -1,0 +1,21 @@
+<div class="container-fluid xxl-8">
+    <div class="row flex-lg-row-reverse align-items-center g-5">
+        <div class="sm-8 lg-6">
+            <div class="image-overlay-container">
+                <img [src]="homePageImage1" class="d-block overlay-image mx-lg-auto img-fluid"
+                    alt="Home page Image not found" loading="lazy">
+                <div class="overlay-text">
+                    <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">{{title}}</h1>
+                    <p class="lead mb-4"><strong>{{description}}</strong></p>
+                </div>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                <button type="button" class="btn btn-secondary overlay-button btn-lg px-4">
+                    <a [routerLink]="['/HA-contact']">{{contactButton}}</a> </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-offer></app-offer>
+<app-testimonials></app-testimonials>

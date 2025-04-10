@@ -1,0 +1,44 @@
+<div *ngIf="errorMessage">
+  <p style="color: red;">{{ errorMessage }}</p>
+</div>
+<div *ngIf="loading">
+  <p>Loading offers...</p>
+</div>
+
+<div class="container mt-5 px-4 py-5" *ngIf="offers && !loading">
+  <div>
+    <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">{{title}}</h1>
+    <p class="lead">
+      We specialize in a wide range of renovation services to meet your needs.
+      Whether you're transforming your basement into a functional living space
+      with framing, drywall installation, painting, and flooring, or upgrading your
+      kitchen and bathroom with expert remodeling and plumbing, we’ve got you covered. For
+      outdoor projects, we offer reliable roofing, deck, and fence
+      enhancements to improve your home’s exterior. Inside your home, we provide comprehensive
+      interior construction and finishing services, ensuring every detail is polished and professional.
+      We also cater to commercial and retail renovations, delivering tailored solutions for business spaces,
+      including plumbing. For customers seeking a complete renovation package,
+      our full-service home improvement solutions combine all of these offerings
+      to create a seamless experience.
+    </p>
+  </div>
+  <div class="row g-2 g-lg-3 px-4 py-5" *ngIf="offers.length > 0; else noOffers">
+    <div class="col-md-6 col-lg-4 col-xl-4" *ngFor="let offer of offers">
+      <div class="card">
+        <div class="card-img-wrapper">
+          <img src="{{offer.coverImage}}" class="card-img" alt="Card Image">
+          <div class="card-img-overlay">
+            <a href="HA-contact" class="btn btn-secondary btn-lg px-4">Get Started</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title text-body-emphasis">{{offer.name}}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noOffers>
+  <p>No offers found.</p>
+</ng-template>
