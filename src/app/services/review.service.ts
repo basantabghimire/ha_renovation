@@ -6,7 +6,6 @@ import { Observable, map } from 'rxjs';
   providedIn: 'root'
 })
 export class ReviewService {
-  // Your confirmed live Sheet ID
   private sheetId = '1RjjA1L5fKj3HRpHN41oMmpvN_C8bVhEZt9YDF6LsXxc'; 
   private sheetName = 'Form Responses 1'; 
 
@@ -17,6 +16,25 @@ export class ReviewService {
 
   constructor(private http: HttpClient) {}
 
+  // Helper function to safely extract string values from Google Sheet cells
+  private parseCell(cell: any): string {
+    if (!cell) return '';
+    if (cell.v !== undefined && cell.v !== null) return String(cell.v).trim();
+    if (cell.f !== undefined && cell.f !== null) return String(cell.f).trim();
+    return '';
+  }
+
+  // Helper function to convert Google's "Date(2026,6,10,...)" string into a standard JS Date object
+  private parseGoogleDate(dateStr: string): Date | null {
+    if (!dateStr || !dateStr.includes('Date')) return null;
+    const matches = dateStr.match(/\d+/g);
+    if (matches && matches.length >= 3) {
+      // Note: Google Sheets months are 0-indexed (January is 0)
+      return new Date(Number(matches[0]), Number(matches[1]), Number(matches[2]));
+    }
+    return null;
+  }
+
   getReviews(): Observable<any[]> {
     return this.http.get(this.url, { responseType: 'text' }).pipe(
       map(res => {
@@ -26,15 +44,19 @@ export class ReviewService {
           const rows = json.table.rows;
           
           // Filter out the header row safely
-          const dataRows = rows.filter((row: any) => row.c && row.c[0] && row.c[0].v !== 'Timestamp');
+          const dataRows = rows.filter((row: any) => row.c && row.c[0] && this.parseCell(row.c[0]) !== 'Timestamp');
           
-          return dataRows.map((row: any) => ({
-            timestamp: row.c[0]?.v,
-            name: row.c[2]?.v || 'Anonymous',    // Column C
-            services: row.c[3]?.v || '',          // Column D 
-            rating: row.c[4]?.v || 5,             // Column E
-            comment: row.c[11]?.v || ''           // Column L (Changed from 8 to 11 for comments)
-          })).reverse(); 
+          return dataRows.map((row: any) => {
+            const rawDate = row.c[0]?.v ? String(row.c[0].v) : '';
+            
+            return {
+              timestamp: this.parseGoogleDate(rawDate),  // Now a true JS Date object
+              name: this.parseCell(row.c[2]) || 'Anonymous', // Column C
+              services: this.parseCell(row.c[3]),           // Column D
+              rating: row.c[4]?.v || 5,                      // Column E
+              comment: this.parseCell(row.c[11])            // Column L (Feedback text)
+            };
+          }).reverse(); 
         }
         return [];
       })

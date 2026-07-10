@@ -3,9 +3,19 @@
   
   <div *ngFor="let review of reviews" class="review-card">
     <h3>{{ review.name }}</h3>
-    <p class="service-tag" *ngIf="review.services"><b>Project:</b> {{ review.services }}</p>
+    
+    <!-- Using length check ensures "Project:" doesn't show up empty -->
+    <p class="service-tag" *ngIf="review.services && review.services.length > 0">
+      <b>Project:</b> {{ review.services }}
+    </p>
+    
     <p class="rating">⭐ {{ review.rating }}/5</p>
-    <p *ngIf="review.comment">"{{ review.comment }}"</p>
-    <small>{{ review.timestamp | date:'shortDate' }}</small>
+    
+    <p *ngIf="review.comment && review.comment.length > 0">
+      "{{ review.comment }}"
+    </p>
+    
+    <!-- This will now display beautifully since timestamp is a real Date object -->
+    <small *ngIf="review.timestamp">{{ review.timestamp | date:'shortDate' }}</small>
   </div>
 </div>
