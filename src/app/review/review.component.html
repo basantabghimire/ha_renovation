@@ -1,42 +1,58 @@
-<section style="color: #000; ">
+<section style="color: #000;">
     <div class="container mt-5 px-4 py-5">
-        <div class="row d-flex justify-content-center">
+        <!-- Headline and Introduction Text Section -->
+        <div class="row d-flex justify-content-center mb-5">
             <div class="col-md-10 col-xl-8 text-center">
-                <h3 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Testimonials</h3>
-                <p class="lead">
+                <h3 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Customer Reviews</h3>
+                <p class="lead text-muted">
                     Dear Customers,
                     Thank you for choosing HA-Renovation for your projects.
                     We hope you are delighted with the results and trust us to have brought your vision to life.
                     Your happiness remains our top priority.
                     Please don't hesitate to reach out if you require any further assistance. Thanks again!
-
                 </p>
             </div>
         </div>
 
-        <div class="row g-2 g-lg-3 text-center">
-            <div class="col-md-6 col-lg-4 col-xl-4">
-                <div class="card fixed-height-card">
-                    <div *ngFor="let review of reviews" class="card-body py-4 mt-2">
-                        <h5 class="font-weight-bold">{{ review.name }}</h5>
-
-
-                        <h6 class="service-tag" *ngIf="review.services && review.services.length > 0"
-                            class="font-weight-bold my-3">{{review.services}} </h6>
-                        <p class="rating">⭐ {{ review.rating }}/5</p>
-
-
-
-                        <p class="mb-2">
-                           <p *ngIf="review.comment && review.comment.length > 0">
-                            "{{ review.comment }}"
-                        </p>
-                                          
-
+        <!-- Dynamic Responsive 3-Column Reviews Grid -->
+        <div class="row g-4 justify-content-center">
+            <!-- 1. Move *ngFor loop to the outer column block so cards repeat side-by-side -->
+            <div *ngFor="let review of reviews" class="col-md-6 col-lg-4 d-flex">
+                <!-- 2. Use shadow-sm or custom CSS for matching cards layout -->
+                <div class="card fixed-height-card shadow-sm border-0 w-100 p-3 text-center">
+                    <div class="card-body py-4 d-flex flex-column justify-content-between">
+                        <div>
+                            <!-- Client Name -->
+                            <h5 class="fw-bold mb-2">{{ review.name }}</h5>
+                            
+                            <!-- Project Category Tag -->
+                            <h6 class="text-muted small mb-3" *ngIf="review.services">
+                                {{ review.services }}
+                            </h6>
+                            
+                            <!-- Star Rating Generator Loop -->
+                            <p class="rating text-info mb-3">
+                                <span *ngFor="let star of [1,2,3,4,5]">
+                                    {{ star <= review.rating ? '★' : '☆' }}
+                                </span>
+                            </p>
+                            
+                            <!-- Review Written Comment Block -->
+                            <p class="card-text text-secondary mb-0 italic-text" *ngIf="review.comment">
+                                <i class="bi bi-quote fs-4 text-secondary d-block"></i>
+                                "{{ review.comment }}"
+                            </p>
+                        </div>
+                        
+                        <!-- Optional: Display Date at the bottom card foot -->
+                        <div class="mt-4 pt-2 border-top">
+                            <small class="text-muted text-uppercase tracking-wider fs-7">
+                                {{ review.timestamp | date:'mediumDate' }}
+                            </small>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
