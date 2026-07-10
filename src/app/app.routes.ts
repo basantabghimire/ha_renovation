@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { ContactComponent } from './contact/contact.component';
 import { TestimonialsComponent } from './testimonials/testimonials.component';
 import { HeroSectionComponent } from './hero-section/hero-section.component';
-
 import { HomeComponent } from './home/home.component';
 import { BlogComponent } from './blog/blog.component';
 import { ProjectComponent } from './project/project.component';

@@ -11,7 +11,6 @@ import { NgIf, NgFor } from '@angular/common';
 })
 export class OfferComponent implements OnInit {
   title = 'Service';
-
   offers: Offer[] | undefined;
   errorMessage: string | undefined;
   loading: boolean = true;

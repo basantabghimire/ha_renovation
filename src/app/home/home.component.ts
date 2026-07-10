@@ -1,12 +1,21 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { OfferComponent } from "../offer/offer.component";
-import { TestimonialsComponent } from "../testimonials/testimonials.component";
-
+import { OfferComponent } from '../offer/offer.component';
+import { TestimonialsComponent } from '../testimonials/testimonials.component';
+import { ReviewComponent } from '../review/review.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterModule, OfferComponent, TestimonialsComponent],
+  standalone: true,
+  imports: [
+    RouterModule,
+    OfferComponent,
+    TestimonialsComponent,
+    ReviewComponent,
+    CommonModule,
+    ReviewComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
