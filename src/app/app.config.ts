@@ -7,6 +7,6 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideHttpClient(withFetch()),
-    provideHttpClient(), // <-- 2. Add this line here
+    //provideHttpClient(), // <-- 2. Add this line here
   ],
 };
