@@ -6,11 +6,8 @@ import { Observable, map } from 'rxjs';
   providedIn: 'root'
 })
 export class ReviewService {
-  private sheetId = '1RjjA1L5fKj3HRpHN41oMmpvN_C8bVhEZt9YDF6LsXxc'; 
-  
-  // NOTE: If you haven't renamed your spreadsheet tab to 'Sheet1', 
-  // change this back to 'Form Responses 1'
-  private sheetName = 'Form Responses 1'; 
+  private sheetId = '1RjjA1L5fKj3HRpHN41oMmpvN_C8bVhEZt9YDF6LsXxc'; // Replace with your actual Google Sheet ID
+  private sheetName = 'Form Responses 1'; // Updated to match your sheet tab perfectly
 
   private get url(): string {
     const encodedName = encodeURIComponent(this.sheetName);
@@ -27,14 +24,15 @@ export class ReviewService {
           const json = JSON.parse(r[1]);
           const rows = json.table.rows;
           
-          // Using a conditional filter to bypass the first header row if it contains column titles
+          // Filter out header row
           const dataRows = rows.filter((row: any) => row.c && row.c[0] && row.c[0].v !== 'Timestamp');
           
           return dataRows.map((row: any) => ({
             timestamp: row.c[0]?.v,
-            name: row.c[1]?.v || 'Anonymous',    // Column B
-            rating: row.c[2]?.v || 5,             // Column C
-            comment: row.c[3]?.v || ''            // Column D
+            name: row.c[2]?.v || 'Anonymous',    // Column C: Name
+            services: row.c[3]?.v || '',          // Column D: Services 
+            rating: row.c[4]?.v || 5,             // Column E: Quality of Workmanship Rating
+            comment: row.c[8]?.v || ''            // Adjust this index if you have a specific written comments column later in the sheet
           })).reverse(); 
         }
         return [];
