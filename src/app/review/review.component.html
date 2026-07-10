@@ -24,26 +24,25 @@
                         <div>
                             <!-- Client Name -->
                             <h5 class="fw-bold mb-2">{{ review.name }}</h5>
-                            
+
                             <!-- Project Category Tag -->
                             <h6 class="text-muted small mb-3" *ngIf="review.services">
                                 {{ review.services }}
                             </h6>
-                            
+
                             <!-- Star Rating Generator Loop -->
                             <p class="rating text-info mb-3">
                                 <span *ngFor="let star of [1,2,3,4,5]">
-                                    {{ star <= review.rating ? '★' : '☆' }}
-                                </span>
+                                    {{ star <= review.rating ? '★' : '☆' }} </span>
                             </p>
-                            
+
                             <!-- Review Written Comment Block -->
                             <p class="card-text text-secondary mb-0 italic-text" *ngIf="review.comment">
                                 <i class="bi bi-quote fs-4 text-secondary d-block"></i>
                                 "{{ review.comment }}"
                             </p>
                         </div>
-                        
+
                         <!-- Optional: Display Date at the bottom card foot -->
                         <div class="mt-4 pt-2 border-top">
                             <small class="text-muted text-uppercase tracking-wider fs-7">
