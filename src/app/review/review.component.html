@@ -1,49 +1,78 @@
 <section style="color: #000;">
     <div class="container mt-5 px-4 py-5">
         <!-- Headline and Introduction Text Section -->
-        <div class="row d-flex justify-content-center mb-5">
+        <div class="row d-flex justify-content-center mb-4">
             <div class="col-md-10 col-xl-8 text-center">
                 <h3 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Customer Reviews</h3>
                 <p class="lead text-muted">
-                    Dear Customers,
-                    Thank you for choosing HA-Renovation for your projects.
-                    We hope you are delighted with the results and trust us to have brought your vision to life.
-                    Your happiness remains our top priority.
-                    Please don't hesitate to reach out if you require any further assistance. Thanks again!
+                    Dear Customers, Thank you for choosing HA-Renovation for your projects. We hope you are delighted with the results and trust us to have brought your vision to life. Your happiness remains our top priority. Please don't hesitate to reach out if you require any further assistance. Thanks again!
                 </p>
             </div>
         </div>
 
-        <!-- Dynamic Responsive 3-Column Reviews Grid -->
+        <!-- ─── NEW FILTER TOOLBAR ─── -->
+        <div class="row g-3 justify-content-center mb-5 filter-bar p-3 shadow-sm mx-auto rounded">
+            <!-- Search Bar Input -->
+            <div class="col-md-4">
+                <input type="text" class="form-control" placeholder="🔍 Search reviews by client or text..." 
+                       [(ngModel)]="searchText" (ngModelChange)="applyFilters()">
+            </div>
+            
+            <!-- Service Type Dropdown -->
+            <div class="col-md-4">
+                <select class="form-select" [(ngModel)]="selectedService" (change)="applyFilters()">
+                    <option value="">All Services</option>
+                    <option *ngFor="let option of serviceOptions" [value]="option">{{ option }}</option>
+                </select>
+            </div>
+            
+            <!-- Stars Rating Dropdown -->
+            <div class="col-md-3">
+                <select class="form-select" [(ngModel)]="selectedRating" (change)="applyFilters()">
+                    <option value="">All Ratings</option>
+                    <option value="5">⭐⭐⭐⭐⭐ 5 Stars</option>
+                    <option value="4">⭐⭐⭐⭐ 4 Stars</option>
+                    <option value="3">⭐⭐⭐ 3 Stars</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- No Reviews Found Fallback Alert -->
+        <div class="row text-center my-4" *ngIf="filteredReviews.length === 0">
+            <div class="col text-muted">
+                <p class="fs-5">No reviews match your selected filter criteria.</p>
+            </div>
+        </div>
+
+        <!-- Dynamic Responsive Reviews Grid -->
         <div class="row g-4 justify-content-center">
-            <!-- 1. Move *ngFor loop to the outer column block so cards repeat side-by-side -->
-            <div *ngFor="let review of reviews" class="col-md-6 col-lg-4 d-flex">
-                <!-- 2. Use shadow-sm or custom CSS for matching cards layout -->
+            <!-- Slice display filters from index 0 to visibleCount limit (starts at 9) -->
+            <div *ngFor="let review of filteredReviews | slice:0:visibleCount" class="col-md-6 col-lg-4 d-flex">
                 <div class="card fixed-height-card shadow-sm border-0 w-100 p-3 text-center">
                     <div class="card-body py-4 d-flex flex-column justify-content-between">
                         <div>
                             <!-- Client Name -->
                             <h5 class="fw-bold mb-2">{{ review.name }}</h5>
-
+                            
                             <!-- Project Category Tag -->
                             <h6 class="text-muted small mb-3" *ngIf="review.services">
                                 {{ review.services }}
                             </h6>
-
+                            
                             <!-- Star Rating Generator Loop -->
                             <p class="rating text-info mb-3">
                                 <span *ngFor="let star of [1,2,3,4,5]">
-                                    {{ star <= review.rating ? '★' : '☆' }} </span>
+                                    {{ star <= review.rating ? '★' : '☆' }}
+                                </span>
                             </p>
-
+                            
                             <!-- Review Written Comment Block -->
                             <p class="card-text text-secondary mb-0 italic-text" *ngIf="review.comment">
-                                <i class="bi bi-quote fs-4 text-secondary d-block"></i>
                                 "{{ review.comment }}"
                             </p>
                         </div>
-
-                        <!-- Optional: Display Date at the bottom card foot -->
+                        
+                        <!-- Date Container Footer -->
                         <div class="mt-4 pt-2 border-top">
                             <small class="text-muted text-uppercase tracking-wider fs-7">
                                 {{ review.timestamp | date:'mediumDate' }}
@@ -51,6 +80,15 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- ─── NEW "LOAD MORE" PAGINATION TRIGGER BLOCK ─── -->
+        <div class="row justify-content-center mt-5" *ngIf="filteredReviews.length > visibleCount">
+            <div class="col-auto">
+                <button type="button" class="btn btn-primary load-more-btn px-5 py-2.5 shadow-sm fw-bold" (click)="loadMore()">
+                    Load More Reviews (Showing {{ visibleCount }} of {{ filteredReviews.length }})
+                </button>
             </div>
         </div>
     </div>

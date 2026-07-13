@@ -26,3 +26,28 @@
 .fs-7 {
     font-size: 0.75rem;
 }
+
+/* Filter section wrapper design style spacing */
+.filter-bar {
+    background-color: #f8f9fa;
+    max-width: 900px;
+    border: 1px solid #eef0f2;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #46b5d1;
+    box-shadow: 0 0 0 0.2rem rgba(70, 181, 209, 0.25);
+}
+
+/* Load more accent styling buttons */
+.load-more-btn {
+    background-color: #46b5d1;
+    border: none;
+    border-radius: 30px;
+    transition: all 0.2s ease-in-out;
+}
+
+.load-more-btn:hover {
+    background-color: #359cb5;
+    transform: scale(1.03);
+}
