@@ -41,7 +41,7 @@ export class ReviewComponent implements OnInit {
   }
 
   applyFilters(): void {
-  this.visibleCount = 9; 
+  this.visibleCount = 16; 
 
   this.filteredReviews = this.allReviews.filter(review => {
     // 1. Rating Filter (Strict match check)
