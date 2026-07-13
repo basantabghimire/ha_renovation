@@ -5,7 +5,9 @@
             <div class="col-md-10 col-xl-8 text-center">
                 <h3 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Customer Reviews</h3>
                 <p class="lead text-muted">
-                    Dear Customers, Thank you for choosing HA-Renovation for your projects. We hope you are delighted with the results and trust us to have brought your vision to life. Your happiness remains our top priority. Please don't hesitate to reach out if you require any further assistance. Thanks again!
+                    Dear Customers, Thank you for choosing HA-Renovation for your projects. We hope you are delighted
+                    with the results and trust us to have brought your vision to life. Your happiness remains our top
+                    priority. Please don't hesitate to reach out if you require any further assistance. Thanks again!
                 </p>
             </div>
         </div>
@@ -14,10 +16,10 @@
         <div class="row g-3 justify-content-center mb-5 filter-bar p-3 shadow-sm mx-auto rounded">
             <!-- Search Bar Input -->
             <div class="col-md-4">
-                <input type="text" class="form-control" placeholder="🔍 Search reviews by client or text..." 
-                       [(ngModel)]="searchText" (ngModelChange)="applyFilters()">
+                <input type="text" class="form-control" placeholder="🔍 Search reviews by client or text..."
+                    [(ngModel)]="searchText" (ngModelChange)="applyFilters()">
             </div>
-            
+
             <!-- Service Type Dropdown -->
             <div class="col-md-4">
                 <select class="form-select" [(ngModel)]="selectedService" (change)="applyFilters()">
@@ -25,7 +27,7 @@
                     <option *ngFor="let option of serviceOptions" [value]="option">{{ option }}</option>
                 </select>
             </div>
-            
+
             <!-- Stars Rating Dropdown -->
             <div class="col-md-3">
                 <select class="form-select" [(ngModel)]="selectedRating" (change)="applyFilters()">
@@ -53,25 +55,24 @@
                         <div>
                             <!-- Client Name -->
                             <h5 class="fw-bold mb-2">{{ review.name }}</h5>
-                            
+
                             <!-- Project Category Tag -->
                             <h6 class="text-muted small mb-3" *ngIf="review.services">
                                 {{ review.services }}
                             </h6>
-                            
+
                             <!-- Star Rating Generator Loop -->
                             <p class="rating text-info mb-3">
                                 <span *ngFor="let star of [1,2,3,4,5]">
-                                    {{ star <= review.rating ? '★' : '☆' }}
-                                </span>
+                                    {{ star <= review.rating ? '★' : '☆' }} </span>
                             </p>
-                            
+
                             <!-- Review Written Comment Block -->
                             <p class="card-text text-secondary mb-0 italic-text" *ngIf="review.comment">
                                 "{{ review.comment }}"
                             </p>
                         </div>
-                        
+
                         <!-- Date Container Footer -->
                         <div class="mt-4 pt-2 border-top">
                             <small class="text-muted text-uppercase tracking-wider fs-7">
@@ -84,10 +85,13 @@
         </div>
 
         <!-- ─── NEW "LOAD MORE" PAGINATION TRIGGER BLOCK ─── -->
+        <!-- ─── "LOAD MORE" PAGINATION TRIGGER BLOCK ─── -->
         <div class="row justify-content-center mt-5" *ngIf="filteredReviews.length > visibleCount">
-            <div class="col-auto">
-                <button type="button" class="btn btn-primary load-more-btn px-5 py-2.5 shadow-sm fw-bold" (click)="loadMore()">
-                    Load More Reviews (Showing {{ visibleCount }} of {{ filteredReviews.length }})
+            <div class="col-auto text-center">
+                <button type="button" class="btn btn-primary load-more-btn px-5 py-2.5 shadow-sm fw-bold"
+                    (click)="loadMore()">
+                    Load More Reviews (Showing {{ visibleCount > filteredReviews.length ? filteredReviews.length :
+                    visibleCount }} of {{ filteredReviews.length }})
                 </button>
             </div>
         </div>
