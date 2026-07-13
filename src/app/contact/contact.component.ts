@@ -34,7 +34,7 @@ export class ContactComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
-      serviceSelect: ['', Validators.required],
+      // serviceSelect: ['', Validators.required],
       message: ['', Validators.required],
     });
     emailjs.init(this.userId); // Initialize EmailJS with your User ID
@@ -48,7 +48,7 @@ export class ContactComponent implements OnInit {
         lastName: this.contactForm.value.lastName,
         email: this.contactForm.value.email,
         phoneNumber: this.contactForm.value.phoneNumber,
-        serviceSelect: this.contactForm.value.serviceSelect,
+        // serviceSelect: this.contactForm.value.serviceSelect,
         message: this.contactForm.value.message,
       };
 
