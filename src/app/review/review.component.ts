@@ -41,7 +41,7 @@ export class ReviewComponent implements OnInit {
   }
 
   applyFilters(): void {
-    this.visibleCount = 9; 
+    this.visibleCount = 16; 
 
     this.filteredReviews = this.allReviews.filter(review => {
       const matchesRating = !this.selectedRating || review.rating.toString() === this.selectedRating;
@@ -57,7 +57,7 @@ export class ReviewComponent implements OnInit {
 
   // 3. Updated function to force Angular to recognize the update
   loadMore(): void {
-    this.visibleCount = this.visibleCount + 9;
+    this.visibleCount = this.visibleCount + 16;
     // Spreading the array forces Angular's change detection to re-run the template lifecycle
     this.filteredReviews = [...this.filteredReviews]; 
   }
