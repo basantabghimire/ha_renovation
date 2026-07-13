@@ -41,19 +41,43 @@ export class ReviewComponent implements OnInit {
   }
 
   applyFilters(): void {
-    this.visibleCount = 16; 
+  this.visibleCount = 9; 
 
-    this.filteredReviews = this.allReviews.filter(review => {
-      const matchesRating = !this.selectedRating || review.rating.toString() === this.selectedRating;
-      const matchesService = !this.selectedService || 
-        (review.services && review.services.toLowerCase().includes(this.selectedService.toLowerCase()));
-      const matchesSearch = !this.searchText || 
-        review.name.toLowerCase().includes(this.searchText.toLowerCase()) || 
-        (review.comment && review.comment.toLowerCase().includes(this.searchText.toLowerCase()));
+  this.filteredReviews = this.allReviews.filter(review => {
+    // 1. Rating Filter (Strict match check)
+    const matchesRating = !this.selectedRating || review.rating.toString() === this.selectedRating;
 
-      return matchesRating && matchesService && matchesSearch;
-    });
-  }
+    // Normalize the services text from Google Sheets to lowercase
+    const reviewServicesStr = (review.services || '').toLowerCase();
+
+    // 2. Dropdown Service Filter (Handles substring matching, e.g., "Kitchen" matches "Kitchen, Bathroom")
+    const matchesServiceDropdown = !this.selectedService || 
+      reviewServicesStr.includes(this.selectedService.toLowerCase());
+
+    // 3. Search Bar Filter (Allows typing multi-word queries like "kitchen and bathroom" or "deck, fence")
+    let matchesSearch = true;
+    if (this.searchText.trim() !== '') {
+      // Split user search into individual words, filtering out filler words like "and", "or", "&"
+      const searchWords = this.searchText
+        .toLowerCase()
+        .split(/[\s,]+/) // Split by spaces or commas
+        .filter(word => word.length > 1 && word !== 'and' && word !== 'or');
+
+      // Check if the review's services, name, or comments contain the search keywords
+      const reviewName = (review.name || '').toLowerCase();
+      const reviewComment = (review.comment || '').toLowerCase();
+
+      // Every typed keyword must find a match somewhere in the name, services list, or comment
+      matchesSearch = searchWords.every(word => 
+        reviewName.includes(word) || 
+        reviewServicesStr.includes(word) || 
+        reviewComment.includes(word)
+      );
+    }
+
+    return matchesRating && matchesServiceDropdown && matchesSearch;
+  });
+}
 
   // 3. Updated function to force Angular to recognize the update
   loadMore(): void {
