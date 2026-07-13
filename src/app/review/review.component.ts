@@ -27,7 +27,7 @@ export class ReviewComponent implements OnInit {
     'Basement ','Kitchen ', 'Bathroom', 'Drywall installation', 'Mudding and taping', 
     'Structural Framing', 'Flooring Services', 'Commercial & Retail Space Renovations',
     'Living Space Transformations', 'Roofing', 'Plumbing', 'Deck and fence', 
-    'Renovation & Remodeling', 'Other' 
+    'Renovation & Remodeling', 'whole Home','Exterior','Other' 
   ];
 
   constructor(public reviewService: ReviewService) {}
