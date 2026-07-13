@@ -24,9 +24,10 @@ export class ReviewComponent implements OnInit {
 
   // Dynamic Service Dropdown List extracted from your actual services
   serviceOptions: string[] = [
-    'Kitchen', 'Bathroom', 'Basement', 'Whole Home', 
-    'Drywall installation', 'Exterior', 'Deck and fence', 
-    'Roofing', 'Living Space Transformations'
+    'Basement ','Kitchen ', 'Bathroom', 'Drywall installation', 'Mudding and taping', 
+    'Structural Framing', 'Flooring Services', 'Commercial & Retail Space Renovations',
+    'Living Space Transformations', 'Roofing', 'Plumbing', 'Deck and fence', 
+    'Renovation & Remodeling', 'Other' 
   ];
 
   constructor(public reviewService: ReviewService) {}
