@@ -22,11 +22,11 @@ export class ReviewComponent implements OnInit {
 
   // Dynamic Service Dropdown List extracted from your actual services
   serviceOptions: string[] = [
-    'Basement ','Kitchen ', 'Bathroom', 'Drywall installation', 'Mudding and taping', 
-    'Structural Framing', 'Flooring Services', 'Commercial & Retail Space Renovations',
-    'Living Space Transformations', 'Roofing', 'Plumbing', 'Deck and fence', 
-    'Renovation & Remodeling', 'whole Home','Exterior','Other' 
-  ];
+  'Basement', 'Kitchen', 'Bathroom', 'Drywall installation', 'Mudding and taping', 
+  'Structural Framing', 'Flooring Services', 'Commercial & Retail Space Renovations',
+  'Living Space Transformations', 'Roofing', 'Plumbing', 'Deck and fence', 
+  'Renovation & Remodeling', 'Whole Home', 'Exterior', 'Other' 
+];
 
   constructor(public reviewService: ReviewService) {}
 
@@ -40,34 +40,35 @@ export class ReviewComponent implements OnInit {
     });
   }
 
-  applyFilters(): void {
-  this.visibleCount = 16; 
+applyFilters(): void {
+  this.visibleCount = 9; 
 
   this.filteredReviews = this.allReviews.filter(review => {
-    // 1. Rating Filter (Strict match check)
+    // 1. Rating Filter
     const matchesRating = !this.selectedRating || review.rating.toString() === this.selectedRating;
 
-    // Normalize the services text from Google Sheets to lowercase
+    // Normalize and clean spreadsheet text strings
     const reviewServicesStr = (review.services || '').toLowerCase();
 
-    // 2. Dropdown Service Filter (Handles substring matching, e.g., "Kitchen" matches "Kitchen, Bathroom")
+    // 2. Dropdown Service Filter (Adding .trim() fixes accidental whitespaces)
+    const cleanSelectedService = this.selectedService.trim().toLowerCase();
     const matchesServiceDropdown = !this.selectedService || 
-      reviewServicesStr.includes(this.selectedService.toLowerCase());
+      reviewServicesStr.includes(cleanSelectedService);
 
-    // 3. Search Bar Filter (Allows typing multi-word queries like "kitchen and bathroom" or "deck, fence")
+    // 3. Search Input Filter
     let matchesSearch = true;
-    if (this.searchText.trim() !== '') {
-      // Split user search into individual words, filtering out filler words like "and", "or", "&"
-      const searchWords = this.searchText
-        .toLowerCase()
-        .split(/[\s,]+/) // Split by spaces or commas
-        .filter(word => word.length > 1 && word !== 'and' && word !== 'or');
+    const cleanSearchText = this.searchText.trim().toLowerCase();
+    
+    if (cleanSearchText !== '') {
+      // Split search text by spaces or commas, stripping out words like "and"
+      const searchWords = cleanSearchText
+        .split(/[\s,]+/)
+        .filter(word => word.length > 0 && word !== 'and' && word !== 'or');
 
-      // Check if the review's services, name, or comments contain the search keywords
       const reviewName = (review.name || '').toLowerCase();
       const reviewComment = (review.comment || '').toLowerCase();
 
-      // Every typed keyword must find a match somewhere in the name, services list, or comment
+      // Check if every word typed matches somewhere in the client name, services list, or comment
       matchesSearch = searchWords.every(word => 
         reviewName.includes(word) || 
         reviewServicesStr.includes(word) || 
@@ -81,7 +82,7 @@ export class ReviewComponent implements OnInit {
 
   // 3. Updated function to force Angular to recognize the update
   loadMore(): void {
-    this.visibleCount = this.visibleCount + 16;
+    this.visibleCount = this.visibleCount + 9;
     // Spreading the array forces Angular's change detection to re-run the template lifecycle
     this.filteredReviews = [...this.filteredReviews]; 
   }
